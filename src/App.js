@@ -1,14 +1,17 @@
 import React from 'react';
-import useFetch from "./custom-hook-await";
+import { useFetchFacts } from "./custom-hook-await";
 
 import { Divider, List } from 'antd';
+import { ModalButton } from './modalButton';
 
 function App() {
-  const [facts, hasError] = useFetch("https://cat-fact.herokuapp.com/facts")
+  const [facts, hasError, isLoading] = useFetchFacts("https://cat-fact.herokuapp.com/facts")
   
   return (
     <>
-    {hasError ? <div>Some Error</div>
+    {isLoading ? <div>Loading...</div> 
+    : 
+      hasError ? <div>{hasError}</div>
     :
       <div className="list">
         <Divider orientation="left">Kocie Fakty</Divider>
@@ -16,8 +19,9 @@ function App() {
           bordered
           dataSource={facts}
           renderItem={(fact) => (
-            <List.Item>
+            <List.Item style={{display: 'flex'}}>
               {fact.text}
+              <ModalButton style={{marginLeft: "auto"}}/>
             </List.Item>
           )}
         />
