@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import useFetch from "./custom-hook-await";
+
+import { Divider, List } from 'antd';
 
 function App() {
+  const [facts, hasError] = useFetch("https://cat-fact.herokuapp.com/facts")
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    {hasError ? <div>Some Error</div>
+    :
+      <div className="list">
+        <Divider orientation="left">Kocie Fakty</Divider>
+        <List
+          bordered
+          dataSource={facts}
+          renderItem={(fact) => (
+            <List.Item>
+              {fact.text}
+            </List.Item>
+          )}
+        />
+      </div>
+    }
+    </>
+  )
 }
 
 export default App;
