@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 
-export const ModalButton = () => {
+export const ModalButton = (id) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [factsById, setFactsById] = useState([]);
     const [error, setError] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
+
     const handleModalClick = async () => {
         setIsLoading(true);
-        const response = await fetch("https://cat-fact.herokuapp.com/facts/591f98803b90f7150a19c229");
+        const response = await fetch(`https://cat-fact.herokuapp.com/facts/${id.id}`);
         const data = await response.json();
             
         if (response.ok) {
@@ -20,7 +21,6 @@ export const ModalButton = () => {
             setIsLoading(false);
         }
     }
-
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -47,7 +47,7 @@ export const ModalButton = () => {
             :
                 <div>
                     <p>{factsById.text}</p>
-                    <p>fact id: {factsById._id}</p>
+                    <p>ID: {factsById._id}</p>
                 </div>
             }
             </Modal>
