@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useFetchFacts = (url) => {
     const [facts, setFacts] = useState([]);
-    const [hasError, setHasError] = useState(false);
+    const [hasError, setHasError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -13,11 +13,10 @@ export const useFetchFacts = (url) => {
             
             if (response.ok) {
                 setFacts(data);
-                setIsLoading(false);
             } else {
                 setHasError(`Error! status: ${response.status}`);
-                setIsLoading(false);
-            }
+            };
+            setIsLoading(false);
         };
 
         fetchFacts();

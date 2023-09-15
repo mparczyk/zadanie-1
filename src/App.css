@@ -1,9 +1,11 @@
-.list {
-    margin: 10%;
-    transform: translate(0px, -50%);
-    background: rgb(244, 248, 248);
-}
 h1 {
     text-align: center;
+    padding: 10px;
+}
+.list {
+    display: block;
+    margin: 10%;
+    transform: translate(0px, -50%);
+    background: rgba(244, 248, 248, 0.9);
 }
 

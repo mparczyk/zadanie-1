@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
+import { Loading } from './Loading';
 
-export const ModalButton = (id) => {
+export const ModalButton = ({ id }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [factsById, setFactsById] = useState([]);
-    const [error, setError] = useState();
+    const [factById, setFactById] = useState([]);
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const handleModalClick = async () => {
+    const fetchFactById = async () => {
         setIsLoading(true);
-        const response = await fetch(`https://cat-fact.herokuapp.com/facts/${id.id}`);
+        const response = await fetch(`https://cat-fact.herokuapp.com/facts/${id}`);
         const data = await response.json();
             
         if (response.ok) {
-            setFactsById(data);
+            setFactById(data);
             setIsLoading(false);
         } else {
             setError(`Error! status: ${response.status}`);
             setIsLoading(false);
         }
-    }
+    };
+    const handleOnClick = () => {
+        showModal();
+        fetchFactById();
+    };
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -33,23 +38,17 @@ export const ModalButton = (id) => {
     
     return (
         <>
-            <Button type="primary" onClick={() => {
-                showModal();
-                handleModalClick();
-            }}
-            >
-                Expand
-            </Button>
+            <Button type="primary" onClick={handleOnClick}>Expand</Button>
             <Modal title="Fact" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            {isLoading ? <div>Loading...</div> 
-            : 
-                error ? <div>{error}</div>
-            :
-                <div>
-                    <p>{factsById.text}</p>
-                    <p>ID: {factsById._id}</p>
-                </div>
-            }
+                <Loading isLoading={isLoading}>
+                    {error ? <p>{error}</p>
+                    :
+                        <div>
+                            <p>{factById.text}</p>
+                            <p>ID: {factById._id}</p>
+                        </div>
+                    }
+                </Loading>
             </Modal>
         </>
     );

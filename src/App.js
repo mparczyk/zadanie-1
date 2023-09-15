@@ -4,59 +4,63 @@ import './App.css';
 
 import { Divider, List, Select } from 'antd';
 import { ModalButton } from './ModalButton';
+import { Loading } from './Loading';
 
 function App() {
-  const [url, setUrl] = useState("https://cat-fact.herokuapp.com/facts");
-  const [facts, hasError, isLoading] = useFetchFacts(url)
+  const url = "https://cat-fact.herokuapp.com/facts";
+  const [animalType, setAnimalType] = useState(url);
+  const [facts, hasError, isLoading] = useFetchFacts(animalType);
 
+  const selectBarValue = [
+    {
+      value: 'cat',
+      label: 'Cat',
+    },
+    {
+      value: 'dog',
+      label: 'Dog',
+    },
+    {
+      value: 'horse',
+      label: 'Horse',
+    },
+  ];
+  
   const handleChange = (value) => {
-    setUrl(`https://cat-fact.herokuapp.com/facts/random?animal_type=${value}&amount=5`);
+    setAnimalType(`${url}/random?animal_type=${value}&amount=5`);
   }
   
   return (
     <>
-    {isLoading ? <div>Loading...</div> 
-    : 
-      hasError ? <div>{hasError}</div>
+    <Loading isLoading={isLoading}>
+      {hasError ? <p>{hasError}</p>
     :
-    <div className='App'>
+    <div>
       <h1>Animal Facts</h1>
       <div className='list'>
         <Divider orientation="center">
           Select an animal
           <Select
-            defaultValue="Cat"
+            defaultValue="cat"
             style={{ width: 200, margin: 10 }}
             onChange={handleChange}
-            options={[
-              {
-                value: 'cat',
-                label: 'Cat',
-              },
-              {
-                value: 'dog',
-                label: 'Dog',
-              },
-              {
-                value: 'horse',
-                label: 'Horse',
-              },
-            ]}
+            options={selectBarValue}
           />
         </Divider>
         <List
           bordered
           dataSource={facts}
           renderItem={(fact) => (
-            <List.Item className='list-item'>
+            <List.Item>
               {fact.text}
-              <ModalButton className="Modal" id={fact._id} />
+              <ModalButton id={fact._id} />
             </List.Item>
           )}
         />
       </div>
       </div>
     }
+    </Loading>
     </>
   )
 }
