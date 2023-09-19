@@ -7,6 +7,7 @@ import { Loading } from './Components/Loading';
 import { ScrollWrapper } from './Components/ScrollWrapper';
 import { url } from './settings/settings';
 import styled from 'styled-components';
+
 const { Text } = Typography;
 
 const MainWrapper = styled.main`

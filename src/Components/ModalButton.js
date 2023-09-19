@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Typography, Space } from 'antd';
 import { Loading } from './Loading';
 import { url } from '../settings/settings';
+
+const { Text } = Typography;
 
 export const ModalButton = ({ id }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,12 +44,12 @@ export const ModalButton = ({ id }) => {
             <Button type="primary" onClick={handleOnClick}>Details</Button>
             <Modal title="Fact" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Loading isLoading={isLoading}>
-                    {error ? <p>{error}</p>
+                    {error ? <Text type="danger">{error}</Text>
                     :
-                        <div>
-                            <p>{factById.text}</p>
-                            <p>ID: {factById._id}</p>
-                        </div>
+                        <Space direction='vertical'>
+                            <Text>{factById.text}</Text>
+                            <Text>ID: {factById._id}</Text>
+                        </Space>
                     }
                 </Loading>
             </Modal>
