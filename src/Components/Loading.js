@@ -1,0 +1,1 @@
+export const Loading = ({ isLoading, children }) => isLoading ? <p>Loading...</p> : children;

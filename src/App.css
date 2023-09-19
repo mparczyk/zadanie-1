@@ -1,11 +1,6 @@
-h1 {
-    text-align: center;
-    padding: 10px;
-}
-.list {
-    display: block;
-    margin: 10%;
-    transform: translate(0px, -50%);
-    background: rgba(244, 248, 248, 0.9);
-}
-
+@font-face {
+    font-family: 'SEGA LOGO FONT';
+    font-style: normal;
+    font-weight: normal;
+    src: local('SEGA LOGO FONT'), url('SEGA.woff') format('woff');
+    }

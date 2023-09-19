@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import { Loading } from './Loading';
+import { url } from '../settings/settings';
 
 export const ModalButton = ({ id }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,17 +12,17 @@ export const ModalButton = ({ id }) => {
 
     const fetchFactById = async () => {
         setIsLoading(true);
-        const response = await fetch(`https://cat-fact.herokuapp.com/facts/${id}`);
-        const data = await response.json();
+        const response = await fetch(`${url}/${id}`);
             
         if (response.ok) {
+            const data = await response.json();
             setFactById(data);
-            setIsLoading(false);
         } else {
             setError(`Error! status: ${response.status}`);
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
+
     const handleOnClick = () => {
         showModal();
         fetchFactById();
@@ -38,7 +39,7 @@ export const ModalButton = ({ id }) => {
     
     return (
         <>
-            <Button type="primary" onClick={handleOnClick}>Expand</Button>
+            <Button type="primary" onClick={handleOnClick}>Details</Button>
             <Modal title="Fact" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Loading isLoading={isLoading}>
                     {error ? <p>{error}</p>

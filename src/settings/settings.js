@@ -1,0 +1,1 @@
+export const url = "https://cat-fact.herokuapp.com/facts";
