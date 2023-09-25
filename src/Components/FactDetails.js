@@ -1,38 +1,21 @@
-import { useState, useEffect } from "react";
-import { Typography, Divider } from 'antd';
+import { Divider } from 'antd';
 import { url } from "../settings/settings";
-import { Loading } from "./Loading";
-import { useParams, useNavigate, } from "react-router";
+import { useNavigate, useLoaderData, } from "react-router";
 import { Paragraph, ScrollWrapper, StyledButton, StyledText } from "../styles/styles";
-const { Text } = Typography; 
 
+export const factsIdLoader = async ({ params }) => {
+    const response = await fetch(`${url}/${params.factId}`);
+    
+    if (response.status === 404) {
+        throw new Response("Not Found", { status: 404 });
+      }
+    return response.json();
+}
 export const FactDetails = () => {
-    const [factById, setFactById] = useState([]);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    let { factId } = useParams();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchFactById = async () => {
-            setIsLoading(true);
-            const response = await fetch(`${url}/${factId}`);
-                
-            if (response.ok) {
-                const data = await response.json();
-                setFactById(data);
-            } else {
-                setError(`Error! status: ${response.status}`);
-            }
-            setIsLoading(false);
-        };
-        fetchFactById();
-    }, [factId]);
+    let factById = useLoaderData();
 
     return (
-       <Loading isLoading={isLoading}>
-        {error ? <Text type="danger">{error}</Text>
-        :
         <>
             <Divider orientation="center">
                 <StyledText>Fact Details</StyledText>
@@ -47,14 +30,5 @@ export const FactDetails = () => {
                 </Paragraph>
             </ScrollWrapper>
         </>
-        }
-    </Loading>
     )
 }
-
-// export const factsIdLoader = async () => {
-//  const res = await await fetch(`${url}/${factId}`);
-//  return res.json()
-// }
-
-// const factDetails = useLoaderData();
