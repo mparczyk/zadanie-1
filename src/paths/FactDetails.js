@@ -1,6 +1,7 @@
-import { Divider } from 'antd';
-import { url } from "../settings/settings";
 import { useNavigate, useLoaderData, } from "react-router";
+import { Divider } from 'antd';
+
+import { url } from "../settings/settings";
 import { Paragraph, ScrollWrapper, StyledButton, StyledText } from "../styles/styles";
 
 export const factsIdLoader = async ({ params }) => {

@@ -1,5 +1,5 @@
 import { useNavigate, useRouteError, isRouteErrorResponse } from "react-router-dom";
-import React from 'react';
+
 import { Result } from 'antd';
 import { StyledButton } from "../styles/styles";
 
