@@ -6,7 +6,6 @@ import { StyledButton } from "../styles/styles";
 export const ErrorPage = () => {
   const navigate = useNavigate();
   const error = useRouteError();
-  console.error(error);
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
@@ -15,7 +14,7 @@ export const ErrorPage = () => {
           status="404"
           title="404"
           subTitle="Sorry, the page you visited does not exist."
-          extra={<StyledButton onClick={() => {navigate(-1);}}>Back Home</StyledButton>}
+          extra={<StyledButton onClick={() => {navigate("/");}}>Back Home</StyledButton>}
         />
       )
     }
@@ -26,7 +25,7 @@ export const ErrorPage = () => {
           status="403"
           title="403"
           subTitle="Sorry, you are not authorized to access this page."
-          extra={<StyledButton onClick={() => {navigate(-1);}}>Back Home</StyledButton>}
+          extra={<StyledButton onClick={() => {navigate("/");}}>Back Home</StyledButton>}
         />
       )
     }
@@ -37,7 +36,7 @@ export const ErrorPage = () => {
           status="500"
           title="500"
           subTitle="Sorry, something went wrong."
-          extra={<StyledButton onClick={() => {navigate(-1);}}>Back Home</StyledButton>}
+          extra={<StyledButton onClick={() => {navigate("/");}}>Back Home</StyledButton>}
         />
       )
     }
@@ -46,7 +45,7 @@ export const ErrorPage = () => {
     <Result
       status="warning"
       title="There are some problems with your operation."
-      extra={<StyledButton onClick={() => {navigate(-1);}}>Back Home</StyledButton>}
+      extra={<StyledButton onClick={() => {navigate("/");}}>Back Home</StyledButton>}
     />
   );
 }

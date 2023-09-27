@@ -6,9 +6,12 @@ import { Paragraph, ScrollWrapper, StyledButton, StyledText } from "../styles/st
 export const factsIdLoader = async ({ params }) => {
     const response = await fetch(`${url}/${params.factId}`);
     
-    if (response.status === 404) {
-        throw new Response("Not Found", { status: 404 });
-      }
+    // if (response.status === 404) {
+    //     throw new Response("Not Found", { status: 404 });
+    //   }
+    if (!response.ok) {
+        throw new Response("Some Error", {status: response.status})
+    }
     return response.json();
 }
 export const FactDetails = () => {
@@ -24,7 +27,7 @@ export const FactDetails = () => {
                 <Paragraph>{factById.text}</Paragraph>
                 <Paragraph>ID: {factById._id}</Paragraph>
                 <Paragraph>
-                    <StyledButton onClick={() => {navigate(-1);}}>
+                    <StyledButton type="text" onClick={() => {navigate("/");}}>
                         Back
                     </StyledButton>
                 </Paragraph>

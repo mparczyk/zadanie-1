@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../App.css';
+
 import { Typography, List, Divider } from 'antd';
-import { SelectBar, ScrollWrapper, StyledButton, StyledText } from '../styles/styles';
+import { SelectBar, ScrollWrapper, StyledText } from '../styles/styles';
 import { useFetchFacts } from "../utils/useFetchFacts";
-import { Loading } from './Loading';
-import { url } from '../settings/settings';
+import { Loading } from '../ui/Loading';
+
+import '../App.css';
+import { ListItem } from '../ui/ListItem';
 
 const { Text } = Typography;
 
 export const AnimalFacts = () => {
     const [animalType, setAnimalType] = useState("cat");
-    const { facts, error, isLoading } = useFetchFacts(`${url}/random?animal_type=${animalType}&amount=30`);
+    const { facts, error, isLoading } = useFetchFacts(animalType);
 
     const selectBarValue = [
         {
@@ -40,7 +41,7 @@ export const AnimalFacts = () => {
                 <Divider orientation="center">
                     <StyledText>Select an animal</StyledText>
                     <SelectBar
-                        defaultValue="cat"
+                        defaultValue={animalType}
                         onChange={handleChange}
                         options={selectBarValue}
                     />
@@ -50,13 +51,7 @@ export const AnimalFacts = () => {
                         className='list'
                         bordered
                         dataSource={facts}
-                        renderItem={(fact) => (
-                            <List.Item>
-                                {fact.text}
-                                <Link to={`details/${fact._id}`}><br/>
-                                <StyledButton>Details</StyledButton></Link>
-                            </List.Item>
-                        )}
+                        renderItem={(fact) => <ListItem fact={fact} />}
                     />
                     </ScrollWrapper>
             </>

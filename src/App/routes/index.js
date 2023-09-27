@@ -1,10 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Home } from './Components/Home';
-import { FactDetails, factsIdLoader } from './Components/FactDetails';
-import { AnimalFacts } from './Components/AnimalFacts';
-import { ErrorPage } from './Components/ErrorPage';
+import { Home } from '../../paths/Home';
+import { FactDetails, factsIdLoader } from '../../paths/FactDetails';
+import { AnimalFacts } from '../../paths/AnimalFacts';
+import { ErrorPage } from '../../paths/ErrorPage';
 
-const paths = [
+export const paths = [
   {
     path: '/',
     element: <Home />,
@@ -36,9 +35,3 @@ const paths = [
     element: <>404</>,
   },
 ];
-
-const browserRouter = createBrowserRouter(paths);
-
-export default function App() {
-  return <RouterProvider router={browserRouter} />;
-}

@@ -1,4 +1,4 @@
-import { Select, Typography } from 'antd';
+import { Select, Typography, Button } from 'antd';
 import styled from 'styled-components';
 const { Text } = Typography;
 
@@ -23,37 +23,50 @@ export const ScrollWrapper = styled.section`
     border: 1px;
     height: 700px;
     background: rgba(244, 248, 248, 0.7);
-
+    {
+      scrollbar-width: thin;
+      scrollbar-color: #404040 #F2FDFF;
+    }
+    
+    
     &::-webkit-scrollbar {
-        display: none;
-      }
+      height: 7px;
+      width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 4px;
+      background-color: #F2FDFF;
+    }
+    
+    &::-webkit-scrollbar-track:hover {
+      background-color: #E7F0F4;
+    }
+    
+    &::-webkit-scrollbar-track:active {
+      background-color: #D1DADC;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #404040;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #000000;
+    }
+    
+    &::-webkit-scrollbar-thumb:active {
+      background-color: #000000;
+    }
 `;
 export const StyledText = styled(Text)`
     font-family: 'SEGA LOGO FONT';
     font-size: 1rem;
 `;
 export const Paragraph = styled.p`
-   padding: 16px;
+  padding: 16px;
 
 `;
-export const StyledButton = styled.button`
-background: rgba(75, 201, 210, 1);
-  border: 0;
-  border-radius: 12px;
-  color: black;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
+export const StyledButton = styled(Button)`
+  background: rgba(75, 201, 210, 1);
 `;
